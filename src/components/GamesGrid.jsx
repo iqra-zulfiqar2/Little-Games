@@ -1,14 +1,20 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "./Footer.jsx";
+
+
+
+// Utility function to convert a title to a URL-friendly slug
+const generateSlug = (title) => {
+  return title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+};
 
 const GamesGrid = () => {
   const navigate = useNavigate();
 
-  // Handle clicking on a game card
-  const handleGameClick = (gameId) => {
-    navigate(`/game/${gameId}`);
+
+  const handleGameClick = (game) => {
+    const slug = generateSlug(game.title);
+    navigate(`/game/${slug}`);
   };
 
   const games = [
@@ -61,8 +67,7 @@ const GamesGrid = () => {
     {
       id: 8,
       title: "Infinite Craft",
-      image:
-        "https://littlegames.gg/wp-content/uploads/2024/08/Infinite-Craft.webp",
+      image: "https://littlegames.gg/wp-content/uploads/2024/08/Infinite-Craft.webp",
       hot: true,
     },
     {
@@ -138,7 +143,7 @@ const GamesGrid = () => {
           <div
             key={game.id}
             className="relative group bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer"
-            onClick={() => handleGameClick(game.id)}
+            onClick={() => handleGameClick(game)}
           >
             {/* Image Container */}
             <div className="aspect-square relative">

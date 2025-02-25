@@ -12,7 +12,7 @@ function App() {
       <div className="flex-grow p-6">
         <Routes>
           <Route path="/" element={<GamesGrid />} />
-          <Route path="/game/:id" element={<GamePage />} />
+          <Route path="/game/:slug" element={<GamePage/>} />
         </Routes>
       </div>
       <Footer/>

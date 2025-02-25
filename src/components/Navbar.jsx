@@ -34,7 +34,7 @@ const Navbar = () => {
         <FaRegHeart size={24} className="text-white cursor-pointer hover:text-gray-400 transition" />
 
         {/* Login Button */}
-        <button className="!bg-white text-blue-900 font-bold font-semibold py-2 px-6 rounded-full shadow-md hover:bg-gray-200 transition">
+        <button className="loginBtn !bg-white text-blue-900 font-bold font-semibold py-2 px-6 rounded-full shadow-md hover:bg-gray-200 transition">
           Log In
         </button>
       </div>
