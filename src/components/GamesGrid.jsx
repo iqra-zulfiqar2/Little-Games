@@ -1,16 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
-// Utility function to convert a title to a URL-friendly slug
 const generateSlug = (title) => {
   return title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 };
 
-const GamesGrid = () => {
+const GamesGrid = ({ searchQuery = "" }) => {  // ✅ Ensure searchQuery is always a string
   const navigate = useNavigate();
-
 
   const handleGameClick = (game) => {
     const slug = generateSlug(game.title);
@@ -136,50 +132,30 @@ const GamesGrid = () => {
     },
   ];
 
+  console.log("searchQuery received in GamesGrid:", searchQuery); // ✅ Debugging
+
+  const filteredGames = games.filter((game) =>
+    game.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="pt-20 p-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-        {games.map((game) => (
+        {filteredGames.map((game) => (
           <div
             key={game.id}
             className="relative group bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer"
             onClick={() => handleGameClick(game)}
           >
-            {/* Image Container */}
             <div className="aspect-square relative">
-              <img
-                src={game.image}
-                alt={game.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-
-              {/* Tags */}
+              <img src={game.image} alt={game.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
               <div className="absolute top-2 right-2 flex gap-1 z-10">
-                {game.hot && (
-                  <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-                    HOT
-                  </span>
-                )}
-                {game.featured && (
-                  <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">
-                    NEW
-                  </span>
-                )}
-              </div>
-
-              {/* Shine Effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="absolute inset-0 transform -rotate-45 translate-y-full group-hover:translate-y-0 transition-transform duration-700">
-                  <div className="w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                </div>
+                {game.hot && <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">HOT</span>}
+                {game.featured && <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">NEW</span>}
               </div>
             </div>
-
-            {/* Title - Hidden by default, shown on hover */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-              <h3 className="text-white text-sm font-bold text-center truncate">
-                {game.title}
-              </h3>
+              <h3 className="text-white text-sm font-bold text-center truncate">{game.title}</h3>
             </div>
           </div>
         ))}

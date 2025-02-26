@@ -9,17 +9,22 @@ import {
   RefreshCw,
   ThumbsUp,
   ThumbsDown,
+  X,
+  Settings,
+  Check,
 } from "lucide-react";
 
 const GamePage = () => {
   const { slug } = useParams();
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [likes, setLikes] = useState(1340000); // Dummy initial likes
-  const [dislikes, setDislikes] = useState(50000); // Dummy initial dislikes
+  const [likes, setLikes] = useState(1340000);
+  const [dislikes, setDislikes] = useState(50000);
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showAllGames, setShowAllGames] = useState(false);
+  const [showCookiesBar, setShowCookiesBar] = useState(true);
   const gameContainerRef = useRef(null);
   const iframeRef = useRef(null);
 
@@ -138,6 +143,11 @@ const GamePage = () => {
     },
   };
 
+  // Featured games for sidebar (first 8)
+  const featuredGames = Object.values(gameData).slice(0, 8);
+  // All games
+  const allGames = Object.values(gameData);
+
   useEffect(() => {
     const matchedGame = Object.values(gameData).find(
       (g) => generateSlug(g.title) === slug
@@ -153,7 +163,7 @@ const GamePage = () => {
       });
     }
     setLoading(false);
-  }, [slug]); // Ensure it runs when slug changes
+  }, [slug]);
 
   // Generate dummy description
   const generateDescription = (title) => {
@@ -215,6 +225,10 @@ const GamePage = () => {
     return (num / 1000000).toFixed(1) + "M";
   };
 
+  const closeCookiesBar = () => {
+    setShowCookiesBar(false);
+  };
+
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -237,129 +251,167 @@ const GamePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br bg-gray-900">
       <Navbar />
-      <div className="pt-20 px-6">
-        
-        <div className="rounded-2xl overflow-hidden shadow-xl max-w-5xl mx-auto">
-          {/* Game Container with Controls */}
-          <div ref={gameContainerRef} className="aspect-video w-full">
-            <iframe
-              ref={iframeRef}
-              src="https://1v1.lol/"
-              title={game?.title}
-              className="w-full h-full"
-              frameBorder="0"
-              allowFullScreen
-            />
+      
 
-            {/* Persistent Control Bar */}
-            <div
-              className={`${
-                isFullscreen
-                  ? "absolute bottom-0 left-0 right-0 bg-blue-900 text-white"
-                  : "relative text-white bg-blue-900"
-              } flex items-center justify-between px-4 py-2`}
-            >
-              {/* Left Side - Game Info */}
-              <div className="flex items-center gap-3">
-                <img
-                  src={game?.image}
-                  alt={game?.title}
-                  className="w-12 h-12 rounded-lg object-cover"
-                />
-                <div>
-                  <h2 className="font-bold text-lg text-white">
-                    {game?.title}
-                  </h2>
+      {/* Main Container with 70-30 Split */}
+      <div className="flex flex-col md:flex-row pt-20 px-4 md:space-x-4 max-w-screen-2xl mx-auto">
+        {/* Left Side Game Content (70%) */}
+        <div className="w-full md:w-[70%]">
+          <div className="rounded-2xl overflow-hidden shadow-xl">
+            {/* Game Container with Controls */}
+            <div ref={gameContainerRef} className="aspect-video w-full">
+              <iframe
+                ref={iframeRef}
+                src="https://1v1.lol/"
+                title={game?.title}
+                className="w-full h-full"
+                frameBorder="0"
+                allowFullScreen
+              />
+
+              {/* Persistent Control Bar */}
+              <div
+                className={`${
+                  isFullscreen
+                    ? "absolute bottom-0 left-0 right-0 bg-blue-900 text-white"
+                    : "relative text-white bg-blue-900"
+                } flex items-center justify-between px-4 py-2`}
+              >
+                {/* Left Side - Game Info */}
+                <div className="flex items-center gap-3">
+                  <img
+                    src={game?.image}
+                    alt={game?.title}
+                    className="w-12 h-12 rounded-lg object-cover"
+                  />
+                  <div>
+                    <h2 className="font-bold text-lg text-white">
+                      {game?.title}
+                    </h2>
+                  </div>
                 </div>
-              </div>
 
-              {/* Right Side - Controls */}
-              <div className="flex items-center gap-6">
-                {/* Like Button */}
-                <button
-                  onClick={handleLike}
-                  className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors"
-                >
-                  <ThumbsUp size={20} />
-                  <span className="text-sm font-medium">
-                    {formatNumber(likes)}
-                  </span>
-                </button>
+                {/* Right Side - Controls */}
+                <div className="flex items-center gap-6">
+                  {/* Like Button */}
+                  <button
+                    onClick={handleLike}
+                    className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors"
+                  >
+                    <ThumbsUp size={20} />
+                    <span className="text-sm font-medium">
+                      {formatNumber(likes)}
+                    </span>
+                  </button>
 
-                {/* Dislike Button */}
-                <button
-                  onClick={handleDislike}
-                  className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors"
-                >
-                  <ThumbsDown size={20} />
-                  <span className="text-sm font-medium">
-                    {formatNumber(dislikes)}
-                  </span>
-                </button>
+                  {/* Dislike Button */}
+                  <button
+                    onClick={handleDislike}
+                    className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors"
+                  >
+                    <ThumbsDown size={20} />
+                    <span className="text-sm font-medium">
+                      {formatNumber(dislikes)}
+                    </span>
+                  </button>
 
-                {/* Reload Button */}
-                <button
-                  onClick={reloadGame}
-                  className="text-white hover:text-blue-400 transition-colors"
-                >
-                  <RefreshCw size={20} />
-                </button>
+                  {/* Reload Button */}
+                  <button
+                    onClick={reloadGame}
+                    className="text-white hover:text-blue-400 transition-colors"
+                  >
+                    <RefreshCw size={20} />
+                  </button>
 
-                {/* Fullscreen Button */}
-                <button
-                  onClick={toggleFullscreen}
-                  className="text-white hover:text-blue-400 transition-colors"
-                >
-                  {isFullscreen ? (
-                    <Minimize2 size={20} />
-                  ) : (
-                    <Maximize2 size={20} />
-                  )}
-                </button>
+                  {/* Fullscreen Button */}
+                  <button
+                    onClick={toggleFullscreen}
+                    className="text-white hover:text-blue-400 transition-colors"
+                  >
+                    {isFullscreen ? (
+                      <Minimize2 size={20} />
+                    ) : (
+                      <Maximize2 size={20} />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <GameStats gameTitle={game?.title} />
+            
+            <GameStats gameTitle={game?.title} />
 
-          {/* Rest of the content */}
-          <div className="flex flex-wrap gap-2 mt-2 ml-5 shadow-gray-600 bg-gray-900">
-            <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
-              Action
-            </span>
-            <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
-              Multiplayer
-            </span>
-            <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
-              Strategy
-            </span>
-            <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
-              Battle Royale
-            </span>
-          </div>
-          {/* Description and Image Section */}
-          <div className="pt-4 px-6 mb-10 bg-gray-900 text-white">
-            <h2 className="text-xl font-bold mb-4">About {game?.title}</h2>
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Description Column */}
-              <div className="flex-1">
-                <div className="text-white leading-relaxed text-justify">
-                  {generateDescription(game?.title)}
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mt-2 ml-5 shadow-gray-600 bg-gray-900">
+              <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
+                Action
+              </span>
+              <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
+                Multiplayer
+              </span>
+              <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
+                Strategy
+              </span>
+              <span className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700">
+                Battle Royale
+              </span>
+            </div>
+            
+            {/* Description Section */}
+            <div className="pt-4 px-6 mb-10 bg-gray-900 text-white">
+              <h2 className="text-xl font-bold mb-4">About {game?.title}</h2>
+              <div className="flex flex-col md:flex-row gap-8">
+                {/* Description Column */}
+                <div className="flex-1">
+                  <div className="text-white leading-relaxed text-justify">
+                    {generateDescription(game?.title)}
+                  </div>
                 </div>
-              </div>
 
-              {/* Image Column */}
-              <div className="md:w-96 flex-shrink-0">
-                <div className="sticky top-4">
-                  <img
-                    src={game?.image} // Dynamic game image
-                    alt={`${game?.title} Gameplay`}
-                    className="w-full h-auto rounded-lg shadow-lg"
-                  />
+                {/* Image Column */}
+                <div className="md:w-60 flex-shrink-0">
+                  <div className="sticky top-4">
+                    <img
+                      src={game?.image}
+                      alt={`${game?.title} Gameplay`}
+                      className="w-full h-auto rounded-lg shadow-lg"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        
+        <div className="w-full md:w-[30%] mt-6 md:mt-0">
+  <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-800 text-white p-4">
+    <div className="mb-4">
+      <h2 className="text-xl font-bold text-center mb-2">More Games</h2>
+      <div className="h-1 w-16 bg-blue-500 mx-auto"></div>
+    </div>
+
+    {/* Games Grid - Displays All 18 Games */}
+    <div className="grid grid-cols-2 gap-3">
+      {allGames.map((game) => (
+        <a 
+          key={game.id} 
+          href={`/game/${generateSlug(game.title)}`}
+          className="block transition-transform hover:scale-105"
+        >
+          <div className="rounded-lg overflow-hidden relative">
+            <img 
+              src={game.image} 
+              alt={game.title} 
+              className="w-full h-24 object-cover" 
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+              <p className="text-xs font-medium text-white truncate">{game.title}</p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
       </div>
     </div>
   );
