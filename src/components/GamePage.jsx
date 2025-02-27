@@ -23,7 +23,6 @@ const GamePage = () => {
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showAllGames, setShowAllGames] = useState(false);
   const [showCookiesBar, setShowCookiesBar] = useState(true);
   const gameContainerRef = useRef(null);
   const iframeRef = useRef(null);
@@ -251,7 +250,6 @@ const GamePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br bg-gray-900">
       <Navbar />
-      
 
       {/* Main Container with 70-30 Split */}
       <div className="flex flex-col md:flex-row pt-20 px-4 md:space-x-4 max-w-screen-2xl mx-auto">
@@ -273,8 +271,8 @@ const GamePage = () => {
               <div
                 className={`${
                   isFullscreen
-                    ? "absolute bottom-0 left-0 right-0 bg-blue-900 text-white"
-                    : "relative text-white bg-blue-900"
+                    ? "absolute bottom-0 left-0 right-0 bg-gray-800 text-white"
+                    : "relative text-white bg-gray-800"
                 } flex items-center justify-between px-4 py-2`}
               >
                 {/* Left Side - Game Info */}
@@ -296,7 +294,7 @@ const GamePage = () => {
                   {/* Like Button */}
                   <button
                     onClick={handleLike}
-                    className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors"
+                    className="flex items-center gap-1 text-white hover:text-green-500 transition-colors"
                   >
                     <ThumbsUp size={20} />
                     <span className="text-sm font-medium">
@@ -307,7 +305,7 @@ const GamePage = () => {
                   {/* Dislike Button */}
                   <button
                     onClick={handleDislike}
-                    className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors"
+                    className="flex items-center gap-1 text-white hover:text-red-500 transition-colors"
                   >
                     <ThumbsDown size={20} />
                     <span className="text-sm font-medium">
@@ -337,7 +335,7 @@ const GamePage = () => {
                 </div>
               </div>
             </div>
-            
+
             <GameStats gameTitle={game?.title} />
 
             {/* Tags */}
@@ -355,7 +353,7 @@ const GamePage = () => {
                 Battle Royale
               </span>
             </div>
-            
+
             {/* Description Section */}
             <div className="pt-4 px-6 mb-10 bg-gray-900 text-white">
               <h2 className="text-xl font-bold mb-4">About {game?.title}</h2>
@@ -381,37 +379,39 @@ const GamePage = () => {
             </div>
           </div>
         </div>
-        
-        <div className="w-full md:w-[30%] mt-6 md:mt-0">
-  <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-800 text-white p-4">
-    <div className="mb-4">
-      <h2 className="text-xl font-bold text-center mb-2">More Games</h2>
-      <div className="h-1 w-16 bg-blue-500 mx-auto"></div>
-    </div>
 
-    {/* Games Grid - Displays All 18 Games */}
-    <div className="grid grid-cols-2 gap-3">
-      {allGames.map((game) => (
-        <a 
-          key={game.id} 
-          href={`/game/${generateSlug(game.title)}`}
-          className="block transition-transform hover:scale-105"
-        >
-          <div className="rounded-lg overflow-hidden relative">
-            <img 
-              src={game.image} 
-              alt={game.title} 
-              className="w-full h-24 object-cover" 
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
-              <p className="text-xs font-medium text-white truncate">{game.title}</p>
+        <div className="w-full md:w-[30%] mt-6 md:mt-0">
+          <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-800 text-white p-4">
+            <div className="mb-4">
+              <h2 className="text-xl font-bold text-center mb-2">More Games</h2>
+              <div className="h-1 w-16 bg-blue-500 mx-auto"></div>
+            </div>
+
+            {/* Games Grid - Displays All 18 Games */}
+            <div className="grid grid-cols-2 gap-3">
+              {allGames.map((game) => (
+                <a
+                  key={game.id}
+                  href={`/game/${generateSlug(game.title)}`}
+                  className="block transition-transform hover:scale-105"
+                >
+                  <div className="rounded-lg overflow-hidden relative">
+                    <img
+                      src={game.image}
+                      alt={game.title}
+                      className="w-full h-24 object-cover"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                      <p className="text-xs font-medium text-white truncate">
+                        {game.title}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
-        </a>
-      ))}
-    </div>
-  </div>
-</div>
+        </div>
       </div>
     </div>
   );

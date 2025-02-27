@@ -1,41 +1,55 @@
 import React from "react";
-import { X } from "lucide-react";
+import { Button, Form, Input, Drawer } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 
-const LoginModel = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+const LoginModel = ({ open, setOpen, setSignupOpen }) => {
+  const [form] = Form.useForm();
+
+  const handleSignupRedirect = () => {
+    setOpen(false); 
+    setTimeout(() => setSignupOpen(true), 100); // ✅ Delay to prevent UI flicker
+  };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      {/* Modal Content */}
-      <div className="bg-gray-900 text-white p-6 rounded-lg w-96 relative">
-        {/* Close Button */}
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-400 hover:text-white">
-          <X size={24} />
-        </button>
-
-        {/* Title */}
-        <h2 className="text-xl font-bold mb-4 text-center">Log in or sign up</h2>
-
-        {/* Email Input */}
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="w-full bg-gray-800 p-2 rounded-md mb-3 text-white placeholder-gray-400 focus:outline-none"
-        />
-
-        {/* Password Input */}
-        <input
-          type="password"
-          placeholder="Enter your password"
-          className="w-full bg-gray-800 p-2 rounded-md mb-3 text-white placeholder-gray-400 focus:outline-none"
-        />
-
-        {/* Login Button */}
-        <button className="w-full bg-purple-600 p-2 rounded-md hover:bg-purple-500 transition">
-          Continue
-        </button>
+    <Drawer
+      placement="right"
+      closable={false}
+      onClose={() => setOpen(false)}
+      open={open}
+      width={400}
+      className="custom-drawer bg-gray-900 relative"
+    >
+      <div className="absolute top-4 right-4">
+        <CloseOutlined className="text-black text-2xl cursor-pointer" onClick={() => setOpen(false)} />
       </div>
-    </div>
+
+      <div className="p-6 pt-12">
+        <h3 className="text-center text-white font-bold text-2xl mb-6">Log in</h3>
+
+        <Form form={form} name="loginForm" layout="vertical">
+          <Form.Item name="email" rules={[{ required: true, message: "Please enter your email!" }]}>
+            <Input placeholder="Enter your email" className="custom-input" />
+          </Form.Item>
+
+          <Form.Item name="password" rules={[{ required: true, message: "Please enter your password!" }]}>
+            <Input placeholder="Enter your password" className="custom-input" />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block className="custom-button bg-[#6842ff]">
+              Continue
+            </Button>
+          </Form.Item>
+        </Form>
+
+        <p className="text-center text-white text-sm mt-4">
+          Don't have an account?{" "}
+          <span className="text-blue-400 cursor-pointer" onClick={handleSignupRedirect}>
+            Sign up
+          </span>
+        </p>
+      </div>
+    </Drawer>
   );
 };
 

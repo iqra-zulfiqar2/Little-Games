@@ -1,11 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const generateSlug = (title) => {
-  return title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-};
+const generateSlug = (title) => title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
-const GamesGrid = ({ searchQuery = "" }) => {  // ✅ Ensure searchQuery is always a string
+const GamesGrid = ({ searchQuery = "" }) => {
   const navigate = useNavigate();
 
   const handleGameClick = (game) => {
@@ -132,7 +130,6 @@ const GamesGrid = ({ searchQuery = "" }) => {  // ✅ Ensure searchQuery is alwa
     },
   ];
 
-  console.log("searchQuery received in GamesGrid:", searchQuery); // ✅ Debugging
 
   const filteredGames = games.filter((game) =>
     game.title.toLowerCase().includes(searchQuery.toLowerCase())

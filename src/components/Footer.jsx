@@ -5,7 +5,7 @@ const Footer = () => {
   const navigate = useNavigate(); // Initialize navigate function
 
   return (
-    <footer className="w-full bg-blue-900 text-white py-8 px-6 flex justify-between items-start max-w-screen-xl mx-auto">
+    <footer className="w-full bg-gray-800 text-white py-8 px-6 flex justify-between items-start">
       {/* Left: Logo & Slogan */}
       <div className="flex flex-col items-start space-y-2 text-white">
         <img
