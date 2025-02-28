@@ -6,8 +6,8 @@ const LoginModel = ({ open, setOpen, setSignupOpen }) => {
   const [form] = Form.useForm();
 
   const handleSignupRedirect = () => {
-    setOpen(false); 
-    setTimeout(() => setSignupOpen(true), 100); // ✅ Delay to prevent UI flicker
+    setOpen(false);
+    setSignupOpen(true); // No delay needed
   };
 
   return (
@@ -17,10 +17,10 @@ const LoginModel = ({ open, setOpen, setSignupOpen }) => {
       onClose={() => setOpen(false)}
       open={open}
       width={400}
-      className="custom-drawer bg-gray-900 relative"
+      className="custom-drawer bg-gray-900 relative transition-all duration-300 ease-in-out"
     >
       <div className="absolute top-4 right-4">
-        <CloseOutlined className="text-black text-2xl cursor-pointer" onClick={() => setOpen(false)} />
+        <CloseOutlined className="text-white text-2xl cursor-pointer" onClick={() => setOpen(false)} />
       </div>
 
       <div className="p-6 pt-12">

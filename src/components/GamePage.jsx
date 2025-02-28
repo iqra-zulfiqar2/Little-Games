@@ -67,7 +67,7 @@ const GamePage = () => {
     },
     6: {
       id: 6,
-      title: "Candy Crush",
+      title: "CoWardle Multiplayer",
       image: "https://littlegames.gg/wp-content/uploads/2024/04/CoWordle.webp",
     },
     7: {
@@ -78,9 +78,9 @@ const GamePage = () => {
     },
     8: {
       id: 8,
-      title: "Snake.io",
+      title: "Basketball Legends",
       image:
-        "https://littlegames.gg/wp-content/uploads/2024/07/Endless-Truck.webp",
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1309.jpg",
     },
     9: {
       id: 9,
@@ -102,7 +102,7 @@ const GamePage = () => {
     },
     12: {
       id: 12,
-      title: "Hill Climb Racing",
+      title: "Chill Climb Racing",
       image: "https://littlegames.gg/wp-content/uploads/2024/05/Shark-io.webp",
     },
     13: {
@@ -139,6 +139,108 @@ const GamePage = () => {
       title: "Blumgi Ball",
       image:
         "https://littlegames.gg/wp-content/uploads/2024/07/Blumgi-Ball.webp",
+    },
+    19: {
+      id: 19,
+      title: "Rolling Sky",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/07/Rolling-Sky.webp",
+    },
+    20: {
+      id: 20,
+      title: "Driftwave",
+      image: "https://littlegames.gg/wp-content/uploads/2024/07/Driftwave.webp",
+    },
+    21: {
+      id: 21,
+      title: "Paper.io 2",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2023/12/image-59.webp",
+    },
+    22: {
+      id: 22,
+      title: "Gunspin",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2023/12/image-13.jpg",
+    },
+    23: {
+      id: 23,
+      title: "Hill Climb Racing 2",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2023/12/hill-climb-racing-2.webp",
+    },
+    24: {
+      id: 24,
+      title: "Truck Loader 3",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/06/Truck-Loader-3-e1718344209874.webp",
+    },
+    25: {
+      id: 25,
+      title: "Crazy Cars",
+      image: "https://littlegames.gg/wp-content/uploads/2024/05/Crazy-Cars.jpg",
+    },
+    26: {
+      id: 26,
+      title: "Pool Club",
+      image:
+      "https://littlegames.gg/wp-content/uploads/2024/06/Pool-Club.webp",
+    },
+    27: {
+      id: 27,
+      title: "Jumping Shell",
+      image: "https://littlegames.gg/wp-content/uploads/2024/06/Jumping-Shell.webp",
+    },
+    28: {
+      id: 28,
+      title: "Doodle Baseball",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/09/Doodle-Baseball.png",
+    },
+    29: {
+      id: 29,
+      title: "Temple of Boom",
+      image: "https://littlegames.gg/wp-content/uploads/2024/05/Temple-of-Boom.webp",
+    },
+    30: {
+      id: 30,
+      title: "Ludo Classic",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/03/Ludo-Classic.jpg",
+    },
+    31: {
+      id: 31,
+      title: "Toca Life Adventure",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1074.jpg",
+    },
+    32: {
+      id: 32,
+      title: "Tic Tac Toe Vegas",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1865.jpg",
+    },
+    33: {
+      id: 33,
+      title: "Sports MiniBattles",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1793.jpg",
+    },
+    34: {
+      id: 34,
+      title: "Zombie Mission 5",
+      image: "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1763.jpg"
+    },
+    35: {
+      id: 35,
+      title: "Stick Fighter 3D",
+      image:
+      "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1361.jpg",
+    },
+    36: {
+      id: 36,
+      title: "Ludo Wars",
+      image: "https://littlegames.gg/wp-content/uploads/2024/01/512x384-899.jpg",
     },
   };
 

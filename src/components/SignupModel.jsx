@@ -9,7 +9,7 @@ const SignupModel = ({ open, setOpen, setLoginOpen }) => {
 
   const handleLoginRedirect = () => {
     setOpen(false);
-    setTimeout(() => setLoginOpen(true), 300); // ✅ Delay to prevent UI flicker
+    setLoginOpen(true); // No delay needed
   };
 
   const handleFormChange = () => {
@@ -26,9 +26,8 @@ const SignupModel = ({ open, setOpen, setLoginOpen }) => {
       onClose={() => setOpen(false)}
       open={open}
       width={400}
-      className="custom-drawer bg-gray-900 relative"
+      className="custom-drawer bg-gray-900 relative transition-all duration-300 ease-in-out"
     >
-      {/* Top Header with Back & Close Buttons */}
       <div className="absolute top-4 left-4 cursor-pointer" onClick={() => setOpen(false)}>
         <LeftOutlined className="text-white text-2xl" />
       </div>
@@ -41,10 +40,7 @@ const SignupModel = ({ open, setOpen, setLoginOpen }) => {
         <p className="text-center text-white text-lg font-semibold mb-4">Create a free account</p>
 
         <Form form={form} name="signupForm" layout="vertical" onChange={handleFormChange}>
-          <Form.Item
-            name="email"
-            rules={[{ required: true, type: "email", message: "Please enter a valid email!" }]}
-          >
+          <Form.Item name="email" rules={[{ required: true, type: "email", message: "Please enter a valid email!" }]}>
             <Input placeholder="Email" className="custom-input" />
           </Form.Item>
 
@@ -76,12 +72,10 @@ const SignupModel = ({ open, setOpen, setLoginOpen }) => {
             <Input.Password placeholder="Confirm password" className="custom-input" />
           </Form.Item>
 
-          {/* Password Requirements Text */}
           <p className="text-sm text-gray-500 mb-4">
             Passwords must be at least 6 characters and include both letters and numbers
           </p>
 
-          {/* Age Confirmation Checkbox */}
           <Form.Item>
             <Checkbox
               className="text-gray-400"
@@ -97,7 +91,6 @@ const SignupModel = ({ open, setOpen, setLoginOpen }) => {
             </Checkbox>
           </Form.Item>
 
-          {/* Continue Button */}
           <Form.Item>
             <Button
               type="primary"
@@ -111,7 +104,6 @@ const SignupModel = ({ open, setOpen, setLoginOpen }) => {
           </Form.Item>
         </Form>
 
-        {/* Login Redirection */}
         <p className="text-center text-white text-sm mt-4">
           Already have an account?{" "}
           <span className="text-blue-400 cursor-pointer" onClick={handleLoginRedirect}>
