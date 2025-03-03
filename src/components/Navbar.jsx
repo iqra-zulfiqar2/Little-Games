@@ -64,7 +64,7 @@ const Navbar = ({ onSearch }) => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full bg-gray-800 py-2 px-6 shadow-lg z-40 flex items-center">
+      <header className="fixed top-0 left-0 w-full bg-[#28293d] py-2 px-6 shadow-lg z-40 flex items-center">
         {/* Logo */}
         <div
           className="p-2 rounded-xl shadow-lg cursor-pointer"
@@ -82,22 +82,22 @@ const Navbar = ({ onSearch }) => {
           <div className="relative w-80">
             <input
               type="search"
-              placeholder="Search games..."
+              placeholder="Search"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full pl-4 pr-10 py-2 rounded-full bg-white shadow-md text-gray-600"
+              className="w-full pl-4 pr-10 py-2 rounded-full bg-[#474967] shadow-md text-[#e5e6ee] outline-none"
             />
-            <span className="absolute right-3 top-2.5 text-gray-500">
+            <span className="absolute right-3 top-2.5 text-[#e5e6ee]">
               <IoSearch size={20} />
             </span>
 
             {/* Search Suggestions Dropdown */}
             {showDropdown && (
-              <div className="absolute top-full left-0 w-full bg-gray-900 text-white rounded-md shadow-lg mt-2 max-h-64 overflow-y-auto">
+              <div className="absolute top-full left-0 w-full bg-[#28293d] text-white rounded-md shadow-lg mt-2 max-h-64 overflow-y-auto">
                 {filteredGames.map((game, index) => (
                   <div
                     key={index}
-                    className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                    className="px-4 py-2 hover:bg-[#474967] cursor-pointer"
                     onClick={() => handleGameClick(game)}
                   >
                     {game}

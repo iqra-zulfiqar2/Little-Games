@@ -154,14 +154,12 @@ const GamePage = () => {
     21: {
       id: 21,
       title: "Paper.io 2",
-      image:
-        "https://littlegames.gg/wp-content/uploads/2023/12/image-59.webp",
+      image: "https://littlegames.gg/wp-content/uploads/2023/12/image-59.webp",
     },
     22: {
       id: 22,
       title: "Gunspin",
-      image:
-        "https://littlegames.gg/wp-content/uploads/2023/12/image-13.jpg",
+      image: "https://littlegames.gg/wp-content/uploads/2023/12/image-13.jpg",
     },
     23: {
       id: 23,
@@ -183,13 +181,13 @@ const GamePage = () => {
     26: {
       id: 26,
       title: "Pool Club",
-      image:
-      "https://littlegames.gg/wp-content/uploads/2024/06/Pool-Club.webp",
+      image: "https://littlegames.gg/wp-content/uploads/2024/06/Pool-Club.webp",
     },
     27: {
       id: 27,
       title: "Jumping Shell",
-      image: "https://littlegames.gg/wp-content/uploads/2024/06/Jumping-Shell.webp",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/06/Jumping-Shell.webp",
     },
     28: {
       id: 28,
@@ -200,7 +198,8 @@ const GamePage = () => {
     29: {
       id: 29,
       title: "Temple of Boom",
-      image: "https://littlegames.gg/wp-content/uploads/2024/05/Temple-of-Boom.webp",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/05/Temple-of-Boom.webp",
     },
     30: {
       id: 30,
@@ -229,18 +228,20 @@ const GamePage = () => {
     34: {
       id: 34,
       title: "Zombie Mission 5",
-      image: "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1763.jpg"
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1763.jpg",
     },
     35: {
       id: 35,
       title: "Stick Fighter 3D",
       image:
-      "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1361.jpg",
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1361.jpg",
     },
     36: {
       id: 36,
       title: "Ludo Wars",
-      image: "https://littlegames.gg/wp-content/uploads/2024/01/512x384-899.jpg",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-899.jpg",
     },
   };
 
@@ -258,7 +259,7 @@ const GamePage = () => {
       setGame(matchedGame);
     } else {
       setGame({
-        title: "Unknown Game",
+        title: "Vectaria",
         image:
           "https://littlegames.gg/wp-content/uploads/2024/05/Hills-of-Steel-.webp",
       });
@@ -343,7 +344,7 @@ const GamePage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br bg-[#1a1b28]">
         <div className="text-2xl font-bold text-white">Loading...</div>
       </div>
     );
@@ -368,13 +369,12 @@ const GamePage = () => {
                 frameBorder="0"
                 allowFullScreen
               />
-
               {/* Persistent Control Bar */}
               <div
                 className={`${
                   isFullscreen
-                    ? "absolute bottom-0 left-0 right-0 bg-gray-800 text-white"
-                    : "relative text-white bg-gray-800"
+                    ? "absolute bottom-0 left-0 right-0 bg-[#28293d] text-white"
+                    : "relative text-white bg-[#28293d]"
                 } flex items-center justify-between px-4 py-2`}
               >
                 {/* Left Side - Game Info */}
@@ -396,7 +396,11 @@ const GamePage = () => {
                   {/* Like Button */}
                   <button
                     onClick={handleLike}
-                    className="flex items-center gap-1 text-white hover:text-green-500 transition-colors"
+                    className={`flex items-center gap-1 transition-colors ${
+                      hasLiked
+                        ? "text-green-500"
+                        : "text-white hover:text-green-500"
+                    }`}
                   >
                     <ThumbsUp size={20} />
                     <span className="text-sm font-medium">
@@ -407,7 +411,11 @@ const GamePage = () => {
                   {/* Dislike Button */}
                   <button
                     onClick={handleDislike}
-                    className="flex items-center gap-1 text-white hover:text-red-500 transition-colors"
+                    className={`flex items-center gap-1 transition-colors ${
+                      hasDisliked
+                        ? "text-red-500"
+                        : "text-white hover:text-red-500"
+                    }`}
                   >
                     <ThumbsDown size={20} />
                     <span className="text-sm font-medium">
@@ -483,7 +491,7 @@ const GamePage = () => {
         </div>
 
         <div className="w-full md:w-[30%] mt-6 md:mt-0">
-          <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-800 text-white p-4">
+          <div className="rounded-2xl overflow-hidden shadow-xl bg-[#1a1b28] text-white p-4">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-center mb-2">More Games</h2>
               <div className="h-1 w-16 bg-blue-500 mx-auto"></div>
@@ -503,7 +511,7 @@ const GamePage = () => {
                       alt={game.title}
                       className="w-full h-24 object-cover"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t bg-[#1a1b28] p-2">
                       <p className="text-xs font-medium text-white truncate">
                         {game.title}
                       </p>

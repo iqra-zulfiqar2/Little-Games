@@ -89,113 +89,111 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
           </button>
         </div>
         {/* Share Section */}
-        {activeSection === "share" && (
-          <div className="bg-gray-800 p-4 rounded-lg mt-2 w-80 animate-accordion-down relative">
+             {/* Centered Modal for Share & Embed */}
+      {activeSection && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-gray-800 p-6 rounded-lg w-96 relative animate-fade-in">
+            {/* Close Button */}
             <button
               onClick={() => setActiveSection(null)}
-              className="absolute top-2 right-2 text-gray-400 hover:text-white transition"
+              className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
             >
-              <X size={18} />
+              <X size={20} />
             </button>
-            <h3 className="text-white text-lg font-bold mb-4">
-              Share this game
-            </h3>
 
-            {/* Social Icons */}
-            <div className="flex gap-3 mb-4">
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-500 p-2 rounded"
-              >
-                <FaFacebook size={20} />
-              </a>
-              <a
-                href={`https://twitter.com/intent/tweet?url=${currentURL}&text=Play ${gameTitle}!`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black p-2 rounded"
-              >
-                <FaXTwitter size={20} />
-              </a>
-              <a
-                href={`https://api.whatsapp.com/send?text=Play ${gameTitle}! ${currentURL}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-500 p-2 rounded"
-              >
-                <FaWhatsapp size={20} />
-              </a>
-              <a
-                href={`https://www.linkedin.com/shareArticle?url=${currentURL}&title=Play ${gameTitle}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-700 p-2 rounded"
-              >
-                <FaLinkedin size={20} />
-              </a>
-              <a
-                href={`https://www.reddit.com/submit?url=${currentURL}&title=Play ${gameTitle}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-red-500 p-2 rounded"
-              >
-                <FaReddit size={20} />
-              </a>
-            </div>
+            {/* Share Section */}
+            {activeSection === "share" && (
+              <>
+                <h3 className="text-white text-lg font-bold mb-4">Share this game</h3>
+                <div className="flex gap-3 mb-4 flex items-center justify-center">
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-500 p-2 rounded"
+                  >
+                    <FaFacebook size={20} />
+                  </a>
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${currentURL}&text=Play ${gameTitle}!`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-black p-2 rounded"
+                  >
+                    <FaXTwitter size={20} />
+                  </a>
+                  <a
+                    href={`https://api.whatsapp.com/send?text=Play ${gameTitle}! ${currentURL}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-500 p-2 rounded"
+                  >
+                    <FaWhatsapp size={20} />
+                  </a>
+                  <a
+                    href={`https://www.linkedin.com/shareArticle?url=${currentURL}&title=Play ${gameTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-700 p-2 rounded"
+                  >
+                    <FaLinkedin size={20} />
+                  </a>
+                  <a
+                    href={`https://www.reddit.com/submit?url=${currentURL}&title=Play ${gameTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-red-500 p-2 rounded"
+                  >
+                    <FaReddit size={20} />
+                  </a>
+                </div>
 
-            {/* Copy Link */}
-            <div className="flex">
-              <input
-                type="text"
-                value={currentURL}
-                readOnly
-                className="bg-gray-700 text-white p-2 rounded-l flex-1"
-              />
-              <button
-                onClick={() => copyToClipboard(currentURL)}
-                className="bg-blue-600 p-2 rounded-r hover:bg-blue-500 transition-colors"
-              >
-                <Copy size={16} />
-              </button>
-            </div>
+                {/* Copy Link */}
+                <div className="flex">
+                  <input
+                    type="text"
+                    value={currentURL}
+                    readOnly
+                    className="bg-gray-700 text-white p-2 rounded-l flex-1"
+                  />
+                  <button
+                    onClick={() => copyToClipboard(currentURL)}
+                    className="bg-blue-600 p-2 rounded-r hover:bg-blue-500 transition-colors"
+                  >
+                    <Copy size={16} />
+                  </button>
+                </div>
+              </>
+            )}
+
+            {/* Embed Section */}
+            {activeSection === "embed" && (
+              <>
+                <h3 className="text-white text-lg font-bold mb-2">
+                  Embed {gameTitle}
+                </h3>
+                <p className="text-gray-400 text-sm mb-4">
+                  Copy and paste this iframe code:
+                </p>
+                <div className="flex">
+                  <input
+                    type="text"
+                    value={embedCode}
+                    readOnly
+                    className="bg-gray-700 text-white p-2 rounded-l flex-1"
+                  />
+                  <button
+                    onClick={() => copyToClipboard(embedCode)}
+                    className="bg-blue-600 p-2 rounded-r hover:bg-blue-500 transition-colors"
+                  >
+                    <Copy size={16} />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-        )}
-        {/* Embed Section */}
-        {activeSection === "embed" && (
-          <div className="bg-gray-800 p-4 rounded-lg mt-2 w-80 animate-accordion-down relative">
-            <button
-              onClick={() => setActiveSection(null)}
-              className="absolute top-2 right-2 text-gray-400 hover:text-white transition"
-            >
-              <X size={18} />
-            </button>
-            <h3 className="text-white text-lg font-bold mb-2">
-              Embed {gameTitle}
-            </h3>
-            <p className="text-gray-400 text-sm mb-4">
-              Copy and paste this iframe code:
-            </p>
-
-            {/* Copy Embed Code */}
-            <div className="flex">
-              <input
-                type="text"
-                value={embedCode}
-                readOnly
-                className="bg-gray-700 text-white p-2 rounded-l flex-1"
-              />
-              <button
-                onClick={() => copyToClipboard(embedCode)}
-                className="bg-blue-600 p-2 rounded-r hover:bg-blue-500 transition-colors"
-              >
-                <Copy size={16} />
-              </button>
-            </div>
-          </div>
-        )}
-
+        </div>
+      )}
          {/* Game Details */}
          <div className="rounded-lg mt-1">
           <p><span className="text-gray-400">Rating:</span> {gameDetails.rating}</p>

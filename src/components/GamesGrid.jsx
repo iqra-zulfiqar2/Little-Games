@@ -10,7 +10,7 @@ const generateSlug = (title) =>
 
 const GamesGrid = ({ searchQuery = "" }) => {
   const navigate = useNavigate();
-  const carouselRefs = useRef({}); // Store refs for each category carousel
+  const carouselRefs = useRef({});
 
   const handleGameClick = (game) => {
     const slug = generateSlug(game.title);
@@ -214,8 +214,7 @@ const GamesGrid = ({ searchQuery = "" }) => {
     {
       id: 26,
       title: "Pool Club",
-      image:
-        "https://littlegames.gg/wp-content/uploads/2024/06/Pool-Club.webp",
+      image: "https://littlegames.gg/wp-content/uploads/2024/06/Pool-Club.webp",
       featured: true,
       category: "Featured",
     },
@@ -297,14 +296,14 @@ const GamesGrid = ({ searchQuery = "" }) => {
     },
   ];
 
-  const categories = ["Featured", "New", "Casual", "Driving", "2 Player"];
+  const categories = ["Featured", "New", "Driving", "Casual", "2 Player"];
 
   return (
     <div className="p-8 pt-17">
       {/* Hero Banner */}
-      <div className="bg-gray-900 mb-4 px-4">
+      <div className="bg-gray-900 mb-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between">
-          <div className="flex items-center mb-4 ml-32 md:mb-0">
+          <div className="flex items-center mb-4 ml-38 md:mb-0">
             <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mr-3">
               <span className="text-white text-2xl">🎮</span>
             </div>
@@ -314,7 +313,7 @@ const GamesGrid = ({ searchQuery = "" }) => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-6 text-sm mr-20">
+          <div className="flex flex-wrap gap-5 text-sm text-white mr-22">
             <div className="flex items-center">
               <span className="mr-2">🎮</span> 4000+ games
             </div>
@@ -334,6 +333,28 @@ const GamesGrid = ({ searchQuery = "" }) => {
         </div>
       </div>
 
+      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+        {games.slice(0, 6).map((game, index) => (
+          <div
+            key={game.id}
+            className={`relative group overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer ${
+              index % 3 === 0 ? "col-span-2 row-span-2" : "col-span-1"
+            }`}
+            onClick={() => handleGameClick(game)}
+          >
+            <img
+              src={game.image}
+              alt={game.title}
+              className="w-full h-full object-cover"
+            />
+
+            {/* Shiny Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
+          </div>
+        ))}
+      </div>
+
+      {/* Game Categories */}
       {categories.map((category) => {
         const categoryGames = games.filter(
           (game) => game.category === category
@@ -344,11 +365,10 @@ const GamesGrid = ({ searchQuery = "" }) => {
               {category} Games
             </h2>
 
-            {/* Navigation buttons only if more than 6 games */}
-            {categoryGames.length > 5 && (
+            {categoryGames.length > 6 && (
               <>
                 <button
-                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 p-2 text-white rounded-full z-10 shadow-lg"
+                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#1a1b28] p-2 text-white rounded-full z-10 shadow-lg"
                   onClick={() => scrollCarousel(category, "left")}
                 >
                   <ChevronLeft size={24} />
@@ -362,33 +382,32 @@ const GamesGrid = ({ searchQuery = "" }) => {
               </>
             )}
 
-            {/* Game Carousel */}
             <div
-              className="flex gap-4 overflow-x-auto scrollbar-hide relative"
+              className="flex gap-4 overflow-x-hidden scrollbar-hide relative"
               ref={(el) => (carouselRefs.current[category] = el)}
               style={{
                 scrollBehavior: "smooth",
                 overflowX: "scroll",
                 display: "flex",
-                paddingBottom: "5px", // Prevents scrollbar visibility
+                paddingBottom: "2px",
               }}
             >
               {categoryGames.map((game) => (
                 <div
-                key={game.id}
-                className="relative min-w-[220px] group bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:scale-x-0 before:transition-transform before:duration-700 before:origin-left hover:before:scale-x-100"
-                onClick={() => handleGameClick(game)}
-              >
-                <img
-                  src={game.image}
-                  alt={game.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
-                  <h3 className="text-white text-sm font-bold text-center truncate">
-                    {game.title}
-                  </h3>
-                </div>
+                  key={game.id}
+                  className="relative min-w-[220px] group bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:scale-x-0 before:transition-transform before:duration-700 before:origin-left hover:before:scale-x-100"
+                  onClick={() => handleGameClick(game)}
+                >
+                  <img
+                    src={game.image}
+                    alt={game.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                    <h3 className="text-white text-sm font-bold text-center truncate">
+                      {game.title}
+                    </h3>
+                  </div>
                 </div>
               ))}
             </div>
@@ -400,4 +419,3 @@ const GamesGrid = ({ searchQuery = "" }) => {
 };
 
 export default GamesGrid;
-

@@ -45,10 +45,10 @@ body {
 
 /* Drawer Styling */
 .custom-drawer .ant-drawer-content {
-  background-color: #1f2937 !important;
+  background-color: #28293d !important;
 }
 .custom-drawer .ant-drawer-body {
-  background-color: #1f2937 !important;
+  background-color: #28293d !important;
   color: white;
 }
 
@@ -99,6 +99,14 @@ body {
 
 button:hover {
   background-color: transparent;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Hide scrollbar in IE & Edge */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
 
 /* Fix Light Mode Overwrites */
