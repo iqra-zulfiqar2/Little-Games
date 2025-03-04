@@ -14,6 +14,7 @@ import {
   Check,
 } from "lucide-react";
 
+
 const GamePage = () => {
   const { slug } = useParams();
   const [game, setGame] = useState(null);
@@ -259,7 +260,7 @@ const GamePage = () => {
       setGame(matchedGame);
     } else {
       setGame({
-        title: "Vectaria",
+        title: "Hills of steel",
         image:
           "https://littlegames.gg/wp-content/uploads/2024/05/Hills-of-Steel-.webp",
       });

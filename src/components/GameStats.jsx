@@ -10,12 +10,14 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
   const location = useLocation();
   
   const currentURL = `${window.location.origin}${location.pathname}`;
-  const embedCode = `<iframe src="${currentURL}" width="800" height="600"></iframe>`;
+  const gameSlug = location.pathname.split("/").pop(); // Extract game slug from URL
+  const embedURL = `${window.location.origin}/embed/${gameSlug}?url=${encodeURIComponent(currentURL)}`;
+  const embedCode = `<iframe src="${embedURL}" width="800" height="600"></iframe>`;
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
   };
+  
 
   const toggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section);
@@ -88,8 +90,7 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
             Embed
           </button>
         </div>
-        {/* Share Section */}
-             {/* Centered Modal for Share & Embed */}
+        {/* Centered Modal for Share & Embed */}
       {activeSection && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-gray-800 p-6 rounded-lg w-96 relative animate-fade-in">
@@ -129,22 +130,6 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
                     className="bg-green-500 p-2 rounded"
                   >
                     <FaWhatsapp size={20} />
-                  </a>
-                  <a
-                    href={`https://www.linkedin.com/shareArticle?url=${currentURL}&title=Play ${gameTitle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-700 p-2 rounded"
-                  >
-                    <FaLinkedin size={20} />
-                  </a>
-                  <a
-                    href={`https://www.reddit.com/submit?url=${currentURL}&title=Play ${gameTitle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-red-500 p-2 rounded"
-                  >
-                    <FaReddit size={20} />
                   </a>
                 </div>
 
@@ -194,14 +179,12 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
           </div>
         </div>
       )}
-         {/* Game Details */}
-         <div className="rounded-lg mt-1">
-          <p><span className="text-gray-400">Rating:</span> {gameDetails.rating}</p>
-          <p><span className="text-gray-400">Released:</span> {gameDetails.releaseDate}</p>
-          <p><span className="text-gray-400">Technology:</span> {gameDetails.technology}</p>
-          <p><span className="text-gray-400">Platforms:</span> {gameDetails.platforms}</p>
-        </div>
-        
+
+      {/* Game Details */}
+      <div className="rounded-lg mt-1">
+        <p><span className="text-gray-400">Rating:</span> {gameDetails.rating}</p>
+        <p><span className="text-gray-400">Released:</span> {gameDetails.releaseDate}</p>
+      </div>
         {/* Category Tags */}
         <div className="mt-1">
           <div className="flex flex-wrap gap-2 mt-2">
@@ -214,14 +197,9 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
           </div>
         </div>
 
-        {/* Game Description */}
-        <div className="mt-6">
-          <h2 className="text-xl font-bold">How to Play</h2>
-          <p className="text-gray-300 mt-2">{gameDetails.howToPlay}</p>
-        </div>
-      </div>
+    </div>
     </div>
   );
-};
+}
 
 export default GameStats;
