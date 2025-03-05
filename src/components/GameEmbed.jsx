@@ -187,9 +187,9 @@ const GameEmbed = () => {
   };
   
   const game = gameData[slug] || {
-    title: "Unknown Game",
+    title: "Hills of Steel",
     url: "https://example.com",
-    image: "https://via.placeholder.com/150",
+    image: "https://littlegames.gg/wp-content/uploads/2024/05/Hills-of-Steel-.webp",
   };
 
   const handleLike = () => {
