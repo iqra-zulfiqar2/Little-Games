@@ -4,11 +4,17 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "./", 
+  base: "./", // Ensures correct asset paths
   build: {
-    outDir: "dist", 
+    outDir: "dist",
   },
   server: {
-    historyApiFallback: true,
+    historyApiFallback: true, // Ensures React Router works in dev mode
   },
 });
+
+
+
+
+
+
