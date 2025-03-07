@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaXTwitter, FaWhatsapp, FaLinkedin, FaReddit } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs.jsx";
+import { toast } from "react-hot-toast";
 
 const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
   const [activeSection, setActiveSection] = useState(null);
@@ -16,6 +17,7 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
   };
   
 
@@ -151,31 +153,31 @@ const GameStats = ({ gameTitle = "Ragdoll Archers" }) => {
               </>
             )}
 
-            {/* Embed Section */}
-            {activeSection === "embed" && (
-              <>
-                <h3 className="text-white text-lg font-bold mb-2">
-                  Embed {gameTitle}
-                </h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  Copy and paste this iframe code:
-                </p>
-                <div className="flex">
-                  <input
-                    type="text"
-                    value={embedCode}
-                    readOnly
-                    className="bg-gray-700 text-white p-2 rounded-l flex-1"
-                  />
-                  <button
-                    onClick={() => copyToClipboard(embedCode)}
-                    className="bg-blue-600 p-2 rounded-r hover:bg-blue-500 transition-colors"
-                  >
-                    <Copy size={16} />
-                  </button>
-                </div>
-              </>
-            )}
+          {/* Embed Section */}
+{activeSection === "embed" && (
+  <>
+    <h3 className="text-white text-lg font-bold mb-2">
+      Embed {gameTitle}
+    </h3>
+    <p className="text-gray-400 text-sm mb-4">
+      Copy and paste this iframe code:
+    </p>
+    <div className="flex">
+      <input
+        type="text"
+        value={embedCode}
+        readOnly
+        className="bg-gray-700 text-white p-2 rounded-l flex-1"
+      />
+      <button
+        onClick={() => copyToClipboard(embedCode)}
+        className="bg-blue-600 p-2 rounded-r hover:bg-blue-500 transition-colors"
+      >
+        <Copy size={16} />
+      </button>
+    </div>
+  </>
+)}
           </div>
         </div>
       )}

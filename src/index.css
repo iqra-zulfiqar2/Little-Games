@@ -16,8 +16,9 @@ header {
   left: 50%;
   transform: translateX(-50%);
 }
-
-
+html{
+  background-color: #111827 !important;
+}
 body {
   margin: 0;
   padding: 0;
@@ -51,7 +52,9 @@ body {
   background-color: #28293d !important;
   color: white;
 }
-
+.custom-tabs .ant-tabs-nav::before {
+  border-bottom: none !important; 
+}
 /* Input Fields */
 .custom-input {
   background-color: #0c0d14 !important;
@@ -59,6 +62,7 @@ body {
   border-radius: 10px;
   padding: 10px;
   border: 1px solid #333;
+  outline: none;
   width: 100%;
 }
 
@@ -97,9 +101,7 @@ body {
 }
 
 
-button:hover {
-  background-color: transparent;
-}
+
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -109,10 +111,4 @@ button:hover {
   scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
 
-/* Fix Light Mode Overwrites */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-}
+

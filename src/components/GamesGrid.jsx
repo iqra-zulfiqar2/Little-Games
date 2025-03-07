@@ -1,12 +1,14 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import GameIcon from "../assets/games.jpg";
+import InstallIcon from "../assets/install.jpg";
+import DeviceIcon from "../assets/device.jpg";
+import FreeIcon from "../assets/free.jpg";
+
 
 const generateSlug = (title) =>
-  title
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
+  title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
 const GamesGrid = ({ searchQuery = "" }) => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const GamesGrid = ({ searchQuery = "" }) => {
   };
 
   const scrollCarousel = (category, direction) => {
-    const scrollAmount = 300;
+    const scrollAmount = 240 * 6; // Move by 6 game widths
     if (carouselRefs.current[category]) {
       carouselRefs.current[category].scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
@@ -294,126 +296,167 @@ const GamesGrid = ({ searchQuery = "" }) => {
       featured: true,
       category: "2 Player",
     },
+    {
+      id: 36,
+      title: "Highway Traffic",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/03/Highway-Traffic.jpg",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 37,
+      title: "Mini Golf Club",
+      image:
+      "https://littlegames.gg/wp-content/uploads/2024/04/image-60.webp",
+      featured: true,
+      category: "2 Player",
+    },
   ];
+
 
   const categories = ["Featured", "New", "Driving", "Casual", "2 Player"];
 
   return (
-    <div className="p-8 pt-17">
-      {/* Hero Banner */}
-      <div className="bg-gray-900 mb-6 px-4">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between">
-          <div className="flex items-center mb-4 ml-38 md:mb-0">
-            <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mr-3">
-              <span className="text-white text-2xl">🎮</span>
+    <div className="p-6 pt-16">
+          {/* Hero Banner */}
+          <div className="bg-gray-900 mb-6 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+          {/* Features Section */}
+          <div className="flex w-full justify-between text-lg text-white gap-24">
+            <div className="flex items-center justify-center flex-1">
+              <img
+                src={GameIcon}
+                alt="Games"
+                className="w-12 h-12 mr-4 rounded-full bg-[#121212]"
+              />
+              <span className="text-lg">4000+ games</span>
             </div>
-            <div>
-              <h1 className="text-lg font-bold text-white">Welcome to</h1>
-              <h2 className="text-lg font-bold text-indigo-400">LittleGames</h2>
+            <div className="flex items-center justify-center flex-1">
+              <img
+                src={InstallIcon}
+                alt="No Install"
+                className="w-12 h-12 mr-4 rounded-full"
+              />
+              <span className="text-lg">No install needed</span>
             </div>
-          </div>
-
-          <div className="flex flex-wrap gap-5 text-sm text-white mr-22">
-            <div className="flex items-center">
-              <span className="mr-2">🎮</span> 4000+ games
+            <div className="flex items-center justify-center flex-1">
+              <img
+                src={DeviceIcon}
+                alt="Devices"
+                className="w-12 h-12 mr-4 rounded-full"
+              />
+              <span className="text-lg">On any device</span>
             </div>
-            <div className="flex items-center">
-              <span className="mr-2">🚀</span> No install needed
-            </div>
-            <div className="flex items-center">
-              <span className="mr-2">💻</span> On any device
-            </div>
-            <div className="flex items-center">
-              <span className="mr-2">👥</span> Play with friends
-            </div>
-            <div className="flex items-center">
-              <span className="mr-2">✨</span> All for free
+            <div className="flex items-center justify-center flex-1">
+              <img
+                src={FreeIcon}
+                alt="Free"
+                className="w-12 h-12 mr-4 rounded-full"
+              />
+              <span className="text-lg">All for free</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
-        {games.slice(0, 6).map((game, index) => (
-          <div
-            key={game.id}
-            className={`relative group overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer ${
-              index % 3 === 0 ? "col-span-2 row-span-2" : "col-span-1"
-            }`}
-            onClick={() => handleGameClick(game)}
+{/* Top Games Section */}
+<div className="mb-6">
+  
+  <div className="grid grid-cols-6 gap-4 auto-rows-[100px] md:auto-rows-[150px] lg:auto-rows-[200px]">
+    {games.map((game, index) => {
+      // Assign different spans based on index pattern
+      const spanClass =
+        index % 10 === 0
+          ? "col-span-2 row-span-2" // Large block
+          : index % 5 === 0
+          ? "col-span-2 row-span-1" // Medium block
+          : "col-span-1 row-span-1"; // Small block
+
+      return (
+        <div
+          key={game.id}
+          className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all duration-300 ${spanClass}`}
+          onClick={() => handleGameClick(game)}
+        >
+          {/* Game Image */}
+          <img src={game.image} alt={game.title} className="w-full h-full object-cover" />
+
+          {/* Shiny Effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
+
+          {/* Title (Hidden by Default, Appears on Hover) */}
+          <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <h3 className="text-white text-sm font-bold text-center truncate">
+              {game.title}
+            </h3>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+
+
+{/* Game Categories with Carousel */}
+{categories.map((category) => {
+  const categoryGames = games.filter((game) => game.category === category);
+  return (
+    <div key={category} className="mb-6 relative">
+      <h2 className="text-xl font-bold text-white mb-3">{category} Games</h2>
+      <div className="relative">
+        {categoryGames.length > 6 && (
+          <button
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
+            onClick={() => scrollCarousel(category, "left")}
           >
-            <img
-              src={game.image}
-              alt={game.title}
-              className="w-full h-full object-cover"
-            />
-
-            {/* Shiny Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
-          </div>
-        ))}
-      </div>
-
-      {/* Game Categories */}
-      {categories.map((category) => {
-        const categoryGames = games.filter(
-          (game) => game.category === category
-        );
-        return (
-          <div key={category} className="mb-6 relative">
-            <h2 className="text-xl font-bold text-white mb-3">
-              {category} Games
-            </h2>
-
-            {categoryGames.length > 6 && (
-              <>
-                <button
-                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#1a1b28] p-2 text-white rounded-full z-10 shadow-lg"
-                  onClick={() => scrollCarousel(category, "left")}
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button
-                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 p-2 text-white rounded-full z-10 shadow-lg"
-                  onClick={() => scrollCarousel(category, "right")}
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </>
-            )}
-
+            <ChevronLeft size={24} />
+          </button>
+        )}
+        <div
+          className="flex gap-4 overflow-hidden relative"
+          ref={(el) => (carouselRefs.current[category] = el)}
+          style={{
+            display: "flex",
+            flexWrap: "nowrap",
+            overflowX: "auto",
+            scrollBehavior: "smooth",
+            scrollbarWidth: "none",
+          }}
+        >
+          {categoryGames.map((game) => (
             <div
-              className="flex gap-4 overflow-x-hidden scrollbar-hide relative"
-              ref={(el) => (carouselRefs.current[category] = el)}
-              style={{
-                scrollBehavior: "smooth",
-                overflowX: "scroll",
-                display: "flex",
-                paddingBottom: "2px",
-              }}
+              key={game.id}
+              className="group relative min-w-[220px] max-w-[220px] bg-white rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+              onClick={() => handleGameClick(game)}
             >
-              {categoryGames.map((game) => (
-                <div
-                  key={game.id}
-                  className="relative min-w-[220px] group bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:scale-x-0 before:transition-transform before:duration-700 before:origin-left hover:before:scale-x-100"
-                  onClick={() => handleGameClick(game)}
-                >
-                  <img
-                    src={game.image}
-                    alt={game.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
-                    <h3 className="text-white text-sm font-bold text-center truncate">
-                      {game.title}
-                    </h3>
-                  </div>
-                </div>
-              ))}
+              {/* Game Image */}
+              <img src={game.image} alt={game.title} className="w-full h-full object-cover" />
+
+              {/* Shiny Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
+
+              {/* Title appears on hover, positioned at the bottom */}
+              <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <h3 className="text-white text-sm font-bold text-center">{game.title}</h3>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          ))}
+        </div>
+        {categoryGames.length > 6 && (
+          <button
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
+            onClick={() => scrollCarousel(category, "right")}
+          >
+            <ChevronRight size={24} />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+})}
+
     </div>
   );
 };

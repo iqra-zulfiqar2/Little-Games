@@ -14,7 +14,6 @@ import {
   Check,
 } from "lucide-react";
 
-
 const GamePage = () => {
   const { slug } = useParams();
   const [game, setGame] = useState(null);
@@ -56,7 +55,7 @@ const GamePage = () => {
     },
     4: {
       id: 4,
-      title: "Car Stunts",
+      title: "Vectaria",
       image:
         "https://littlegames.gg/wp-content/uploads/2024/06/Vectaria.io_.webp",
     },
@@ -240,9 +239,15 @@ const GamePage = () => {
     },
     36: {
       id: 36,
-      title: "Ludo Wars",
+      title: "HighwayTraffic",
       image:
-        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-899.jpg",
+        "https://littlegames.gg/wp-content/uploads/2024/03/Highway-Traffic.jpg",
+    },
+    37: {
+      id: 37,
+      title: "UNO Card Game",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/04/image-60.webp",
     },
   };
 
@@ -393,11 +398,11 @@ const GamePage = () => {
                 </div>
 
                 {/* Right Side - Controls */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
                   {/* Like Button */}
                   <button
                     onClick={handleLike}
-                    className={`flex items-center gap-1 transition-colors ${
+                    className={`flex items-center gap-1 px-1 py-2 bg-[#474967] rounded-md transition-colors hover:bg-[#474967] ${
                       hasLiked
                         ? "text-green-500"
                         : "text-white hover:text-green-500"
@@ -412,7 +417,7 @@ const GamePage = () => {
                   {/* Dislike Button */}
                   <button
                     onClick={handleDislike}
-                    className={`flex items-center gap-1 transition-colors ${
+                    className={`flex items-center gap-1 px-1 py-2 bg-[#474967] rounded-md transition-colors hover:bg-[#474967] ${
                       hasDisliked
                         ? "text-red-500"
                         : "text-white hover:text-red-500"
@@ -427,7 +432,7 @@ const GamePage = () => {
                   {/* Reload Button */}
                   <button
                     onClick={reloadGame}
-                    className="text-white hover:text-blue-400 transition-colors"
+                    className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
                   >
                     <RefreshCw size={20} />
                   </button>
@@ -435,7 +440,7 @@ const GamePage = () => {
                   {/* Fullscreen Button */}
                   <button
                     onClick={toggleFullscreen}
-                    className="text-white hover:text-blue-400 transition-colors"
+                    className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
                   >
                     {isFullscreen ? (
                       <Minimize2 size={20} />
@@ -471,7 +476,7 @@ const GamePage = () => {
               <div className="flex flex-col md:flex-row gap-8">
                 {/* Description Column */}
                 <div className="flex-1">
-                  <div className="text-white leading-relaxed text-justify">
+                  <div className="text-white leading-relaxed text-left">
                     {generateDescription(game?.title)}
                   </div>
                 </div>
@@ -504,7 +509,7 @@ const GamePage = () => {
                 <a
                   key={game.id}
                   href={`/game/${generateSlug(game.title)}`}
-                  className="block transition-transform hover:scale-105"
+                  className="block transition-transform hover:scale-105 relative group"
                 >
                   <div className="rounded-lg overflow-hidden relative">
                     <img
@@ -512,8 +517,10 @@ const GamePage = () => {
                       alt={game.title}
                       className="w-full h-24 object-cover"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t bg-[#1a1b28] p-2">
-                      <p className="text-xs font-medium text-white truncate">
+                    {/* Light black shadow effect over title on hover */}
+                    <div className="absolute bottom-0 left-0 right-0 p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black to-transparent"></div>
+                      <p className="relative text-xs font-medium text-white text-center z-10">
                         {game.title}
                       </p>
                     </div>

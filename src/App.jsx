@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import GamesGrid from "./components/GamesGrid.jsx";
-import GamePage from "./components/GamePage.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import SignupModel from "./components/SignupModel.jsx";
-import CategoryPage from "./components/CategoryPage.jsx"; 
-import GameEmbed from "./components/GameEmbed.jsx";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import GamesGrid from "./components/GamesGrid";
+import GamePage from "./components/GamePage";
+import CategoryPage from "./components/CategoryPage";
+import GameEmbed from "./components/GameEmbed";
+import SignupModel from "./components/SignupModel";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,8 +25,25 @@ function App() {
     }
   }, [isLoginOpen, switchToSignup]);
 
+  useEffect(() => {
+    const applyZoomBackground = () => {
+      document.documentElement.style.backgroundColor = "#121212";
+      document.body.style.backgroundColor = "#121212";
+    };
+
+    window.addEventListener("resize", applyZoomBackground);
+    window.addEventListener("load", applyZoomBackground);
+
+    return () => {
+      window.removeEventListener("resize", applyZoomBackground);
+      window.removeEventListener("load", applyZoomBackground);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br bg-gray-900">
+    <div className="flex flex-col min-h-screen bg-gray-900">
+      {/* Toaster for toast notifications */}
+      <Toaster position="top-center" />
       {!isEmbedPage && <Navbar onSearch={setSearchQuery} onLogin={() => setIsLoginOpen(true)} />}
       
       <div className="flex-grow p-6">
@@ -51,6 +69,5 @@ function App() {
 }
 
 export default App;
-
 
 
