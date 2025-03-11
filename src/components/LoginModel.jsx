@@ -6,6 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 
 const LoginModel = ({ open, setOpen, setSignupOpen }) => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   useEffect(() => {
@@ -69,12 +70,27 @@ const LoginModel = ({ open, setOpen, setSignupOpen }) => {
     );
   };
 
+  // Handle Email & Password changes
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setIsButtonEnabled(e.target.value.trim() !== "");
+    checkButtonState(e.target.value, password);
   };
 
-  const handleContinue = () => {
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    checkButtonState(email, e.target.value);
+  };
+
+  const checkButtonState = (email, password) => {
+    setIsButtonEnabled(email.trim() !== "" && password.trim() !== "");
+  };
+
+  const handleLogin = () => {
+    console.log("Logging in with:", { email, password });
+    // TODO: Add authentication logic here
+  };
+
+  const handleSignupRedirect = () => {
     setOpen(false); // Close login modal
     setSignupOpen(true); // Open signup modal
   };
@@ -123,34 +139,55 @@ const LoginModel = ({ open, setOpen, setSignupOpen }) => {
 
         {/* OR Divider */}
         <div className="flex items-center my-4">
-          <hr className="w-1/3 border-gray-600" />
-          <span className="mx-2 text-gray-400 text-center w-1/3">OR</span>
-          <hr className="w-1/3 border-gray-600" />
+          <hr className="flex-1 border-gray-600" />
+          <span className="px-3 text-gray-400 text-center whitespace-nowrap">
+            OR
+          </span>
+          <hr className="flex-1 border-gray-600" />
         </div>
 
         {/* Email Input */}
         <Input
           placeholder="Enter your email"
-          className="custom-input p-3 mb-8 bg-[#3b3c54] border-none text-white rounded-md placeholder-gray-400 focus:outline-none"
+          className="custom-input p-3 mb-4 bg-[#3b3c54] border-none text-white rounded-md placeholder-gray-400 focus:outline-none"
           value={email}
           onChange={handleEmailChange}
         />
 
-        {/* Continue Button */}
+        {/* Password Input */}
+        <Input.Password
+          placeholder="Enter your password"
+          className="custom-input p-3 mb-4 mt-3  bg-[#3b3c54] border-none text-white rounded-md placeholder-gray-400 focus:outline-none"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+
+        {/* Log in Button */}
         <Button
           type="primary"
           block
-          className={`py-2 rounded-full mt-2 focus:outline-none custom-button ${
+          className={`py-1 rounded-full focus:outline-none custom-button ${
             isButtonEnabled
               ? "bg-blue-500 text-white cursor-pointer hover:bg-blue-600"
               : "bg-gray-400 text-gray-200 cursor-not-allowed"
           }`}
           disabled={!isButtonEnabled}
-          onClick={handleContinue}
+          onClick={handleLogin}
           style={{ outline: "none" }}
         >
-          Continue
+          Log in
         </Button>
+
+        {/* Signup Redirect Link */}
+        <p className="text-center text-gray-400 mt-4">
+          Don't have an account?{" "}
+          <span
+            className="text-blue-500 cursor-pointer hover:underline"
+            onClick={handleSignupRedirect}
+          >
+            Signup
+          </span>
+        </p>
       </div>
     </Drawer>
   );

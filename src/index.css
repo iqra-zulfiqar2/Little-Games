@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -42,7 +41,6 @@ body {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-
 
 /* Drawer Styling */
 .custom-drawer .ant-drawer-content {
@@ -100,9 +98,6 @@ body {
   background-color: #1565C0 !important;
 }
 
-
-
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -110,5 +105,4 @@ body {
   -ms-overflow-style: none; /* Hide scrollbar in IE & Edge */
   scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
-
 

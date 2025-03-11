@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import GameStats from "./GameStats.jsx";
+import { FaRegHeart } from "react-icons/fa";
 import {
   Maximize2,
   Minimize2,
@@ -246,8 +247,42 @@ const GamePage = () => {
     37: {
       id: 37,
       title: "UNO Card Game",
+      image: "https://littlegames.gg/wp-content/uploads/2024/04/image-60.webp",
+    },
+    38: {
+      id: 38,
+      title: "Gulper.io",
       image:
-        "https://littlegames.gg/wp-content/uploads/2024/04/image-60.webp",
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1819.jpg",
+    },
+    39: {
+      id: 39,
+      title: "Watermelon Drop",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/Watermelon-drop.jpg",
+    },
+    40: {
+      id: 40,
+      title: "Ballon Slicer Game",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/Balloon-Slicer-Game.jpg",
+    },
+    41: {
+      id: 41,
+      title: "Squid Game.io",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/Squid-Game.io_.jpg",
+    },
+    42: {
+      id: 42,
+      title: "Mountain Bike Racer",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/05/Mountain-Bike-Racer.webp",
+    },
+    43: {
+      id: 43,
+      title: "Fury Wars",
+      image: "https://littlegames.gg/wp-content/uploads/2024/05/Fury-Wars.jpg",
     },
   };
 
@@ -365,21 +400,25 @@ const GamePage = () => {
         {/* Left Side Game Content (70%) */}
         <div className="w-full md:w-[70%]">
           <div className="rounded-2xl overflow-hidden shadow-xl">
-            {/* Game Container with Controls */}
-            <div ref={gameContainerRef} className="aspect-video w-full">
-              <iframe
-                ref={iframeRef}
-                src="https://1v1.lol/"
-                title={game?.title}
-                className="w-full h-full"
-                frameBorder="0"
-                allowFullScreen
-              />
+            {/* Game Wrapper - This enters Fullscreen Mode */}
+            <div ref={gameContainerRef} className="relative w-full">
+              {/* Game Container */}
+              <div className="aspect-video w-full">
+                <iframe
+                  ref={iframeRef}
+                  src="https://1v1.lol/"
+                  title={game?.title}
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allowFullScreen
+                />
+              </div>
+
               {/* Persistent Control Bar */}
               <div
                 className={`${
                   isFullscreen
-                    ? "absolute bottom-0 left-0 right-0 bg-[#28293d] text-white"
+                    ? "fixed bottom-0 left-0 right-0 bg-[#28293d] text-white z-50"
                     : "relative text-white bg-[#28293d]"
                 } flex items-center justify-between px-4 py-2`}
               >
@@ -398,56 +437,86 @@ const GamePage = () => {
                 </div>
 
                 {/* Right Side - Controls */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   {/* Like Button */}
-                  <button
-                    onClick={handleLike}
-                    className={`flex items-center gap-1 px-1 py-2 bg-[#474967] rounded-md transition-colors hover:bg-[#474967] ${
-                      hasLiked
-                        ? "text-green-500"
-                        : "text-white hover:text-green-500"
-                    }`}
-                  >
-                    <ThumbsUp size={20} />
-                    <span className="text-sm font-medium">
-                      {formatNumber(likes)}
+                  <div className="relative group">
+                    <button
+                      onClick={handleLike}
+                      className={`flex items-center gap-1 px-1 py-2 bg-[#474967] rounded-md transition-colors hover:bg-[#474967] ${
+                        hasLiked
+                          ? "text-green-500"
+                          : "text-white hover:text-green-500"
+                      }`}
+                    >
+                      <ThumbsUp size={20} />
+                      <span className="text-sm font-medium">
+                        {formatNumber(likes)}
+                      </span>
+                    </button>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -top-8 scale-0 group-hover:scale-100 transition bg-[#474967] text-white text-xs rounded-md px-2 py-1">
+                      Like
                     </span>
-                  </button>
+                  </div>
 
                   {/* Dislike Button */}
-                  <button
-                    onClick={handleDislike}
-                    className={`flex items-center gap-1 px-1 py-2 bg-[#474967] rounded-md transition-colors hover:bg-[#474967] ${
-                      hasDisliked
-                        ? "text-red-500"
-                        : "text-white hover:text-red-500"
-                    }`}
-                  >
-                    <ThumbsDown size={20} />
-                    <span className="text-sm font-medium">
-                      {formatNumber(dislikes)}
+                  <div className="relative group">
+                    <button
+                      onClick={handleDislike}
+                      className={`flex items-center gap-1 px-1 py-2 bg-[#474967] rounded-md transition-colors hover:bg-[#474967] ${
+                        hasDisliked
+                          ? "text-red-500"
+                          : "text-white hover:text-red-500"
+                      }`}
+                    >
+                      <ThumbsDown size={20} />
+                      <span className="text-sm font-medium">
+                        {formatNumber(dislikes)}
+                      </span>
+                    </button>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -top-8 scale-0 group-hover:scale-100 transition bg-[#474967] text-white text-xs rounded-md px-2 py-1">
+                      Dislike
                     </span>
-                  </button>
+                  </div>
+
+                  {/* Favorite (Heart) Button */}
+                  <div className="relative group">
+                    <button className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400">
+                      <FaRegHeart size={20} />
+                    </button>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -top-8 scale-0 group-hover:scale-100 transition bg-[#474967] text-white text-xs rounded-md px-2 py-1">
+                      Favorite
+                    </span>
+                  </div>
 
                   {/* Reload Button */}
-                  <button
-                    onClick={reloadGame}
-                    className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
-                  >
-                    <RefreshCw size={20} />
-                  </button>
+                  <div className="relative group">
+                    <button
+                      onClick={reloadGame}
+                      className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
+                    >
+                      <RefreshCw size={20} />
+                    </button>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -top-8 scale-0 group-hover:scale-100 transition bg-[#474967] text-white text-xs rounded-md px-2 py-1">
+                      Reload
+                    </span>
+                  </div>
 
                   {/* Fullscreen Button */}
-                  <button
-                    onClick={toggleFullscreen}
-                    className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
-                  >
-                    {isFullscreen ? (
-                      <Minimize2 size={20} />
-                    ) : (
-                      <Maximize2 size={20} />
-                    )}
-                  </button>
+                  <div className="relative group">
+                    <button
+                      onClick={toggleFullscreen}
+                      className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
+                    >
+                      {isFullscreen ? (
+                        <Minimize2 size={20} />
+                      ) : (
+                        <Maximize2 size={20} />
+                      )}
+                    </button>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -top-8 scale-0 group-hover:scale-100 transition bg-[#474967] text-white text-xs rounded-md px-2 py-1">
+                      {isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -472,25 +541,23 @@ const GamePage = () => {
 
             {/* Description Section */}
             <div className="pt-4 px-6 mb-10 bg-gray-900 text-white">
-              <h2 className="text-xl font-bold mb-4">About {game?.title}</h2>
-              <div className="flex flex-col md:flex-row gap-8">
-                {/* Description Column */}
-                <div className="flex-1">
-                  <div className="text-white leading-relaxed text-left">
-                    {generateDescription(game?.title)}
-                  </div>
-                </div>
+              {/* Title */}
+              <h2 className="text-2xl font-bold mb-4 text-left">
+                About {game?.title}
+              </h2>
 
-                {/* Image Column */}
-                <div className="md:w-60 flex-shrink-0">
-                  <div className="sticky top-4">
-                    <img
-                      src={game?.image}
-                      alt={`${game?.title} Gameplay`}
-                      className="w-full h-auto rounded-lg shadow-lg"
-                    />
-                  </div>
-                </div>
+              {/* Image */}
+              <div className="w-full md:w-60 mb-4">
+                <img
+                  src={game?.image}
+                  alt={`${game?.title} Gameplay`}
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+              </div>
+
+              {/* Description */}
+              <div className="text-gray-300 text-lg leading-loose text-left">
+                {generateDescription(game?.title)}
               </div>
             </div>
           </div>
@@ -503,7 +570,7 @@ const GamePage = () => {
               <div className="h-1 w-16 bg-blue-500 mx-auto"></div>
             </div>
 
-            {/* Games Grid - Displays All 18 Games */}
+            {/* Games Grid - Displays All 43 Games */}
             <div className="grid grid-cols-2 gap-3">
               {allGames.map((game) => (
                 <a
@@ -511,11 +578,11 @@ const GamePage = () => {
                   href={`/game/${generateSlug(game.title)}`}
                   className="block transition-transform hover:scale-105 relative group"
                 >
-                  <div className="rounded-lg overflow-hidden relative">
+                  <div className="rounded-lg overflow-hidden relative aspect-w-1 aspect-h-1">
                     <img
                       src={game.image}
                       alt={game.title}
-                      className="w-full h-24 object-cover"
+                      className="w-full h-full object-cover"
                     />
                     {/* Light black shadow effect over title on hover */}
                     <div className="absolute bottom-0 left-0 right-0 p-1 opacity-0 group-hover:opacity-100 transition-opacity">

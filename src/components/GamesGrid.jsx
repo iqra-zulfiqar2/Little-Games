@@ -1,14 +1,17 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import GameIcon from "../assets/games.jpg";
 import InstallIcon from "../assets/install.jpg";
 import DeviceIcon from "../assets/device.jpg";
 import FreeIcon from "../assets/free.jpg";
 
-
 const generateSlug = (title) =>
-  title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+  title
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
 
 const GamesGrid = ({ searchQuery = "" }) => {
   const navigate = useNavigate();
@@ -263,14 +266,14 @@ const GamesGrid = ({ searchQuery = "" }) => {
       image:
         "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1865.jpg",
       featured: true,
-      category: "2 Player",
+      category: "New",
     },
     {
       id: 33,
       title: "Sports MiniBattles",
       image:
         "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1793.jpg",
-      category: "2 Player",
+      category: "New",
     },
     {
       id: 34,
@@ -278,7 +281,7 @@ const GamesGrid = ({ searchQuery = "" }) => {
       image:
         "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1763.jpg",
       featured: true,
-      category: "2 Player",
+      category: "Driving",
     },
     {
       id: 35,
@@ -286,7 +289,7 @@ const GamesGrid = ({ searchQuery = "" }) => {
       image:
         "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1361.jpg",
       featured: true,
-      category: "2 Player",
+      category: "Driving",
     },
     {
       id: 35,
@@ -294,7 +297,7 @@ const GamesGrid = ({ searchQuery = "" }) => {
       image:
         "https://littlegames.gg/wp-content/uploads/2024/01/512x384-899.jpg",
       featured: true,
-      category: "2 Player",
+      category: "Driving",
     },
     {
       id: 36,
@@ -307,20 +310,65 @@ const GamesGrid = ({ searchQuery = "" }) => {
     {
       id: 37,
       title: "Mini Golf Club",
+      image: "https://littlegames.gg/wp-content/uploads/2024/04/image-60.webp",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 38,
+      title: "Gulper.io",
       image:
-      "https://littlegames.gg/wp-content/uploads/2024/04/image-60.webp",
+        "https://littlegames.gg/wp-content/uploads/2024/01/512x384-1819.jpg",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 39,
+      title: "Watermelon Drop",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/Watermelon-drop.jpg",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 40,
+      title: "Ballon Slicer Game",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/Balloon-Slicer-Game.jpg",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 41,
+      title: "Squid Game.io",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/01/Squid-Game.io_.jpg",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 42,
+      title: "Mountain Bike Racer",
+      image:
+        "https://littlegames.gg/wp-content/uploads/2024/05/Mountain-Bike-Racer.webp",
+      featured: true,
+      category: "2 Player",
+    },
+    {
+      id: 43,
+      title: "Fury Wars",
+      image: "https://littlegames.gg/wp-content/uploads/2024/05/Fury-Wars.jpg",
       featured: true,
       category: "2 Player",
     },
   ];
 
-
   const categories = ["Featured", "New", "Driving", "Casual", "2 Player"];
 
   return (
     <div className="p-6 pt-16">
-          {/* Hero Banner */}
-          <div className="bg-gray-900 mb-6 px-6 py-4">
+      {/* Hero Banner */}
+      <div className="bg-gray-900 mb-6 px-6 py-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
           {/* Features Section */}
           <div className="flex w-full justify-between text-lg text-white gap-24">
@@ -360,51 +408,75 @@ const GamesGrid = ({ searchQuery = "" }) => {
         </div>
       </div>
 
-{/* Top Games Section */}
-<div className="mb-6">
-  
-  <div className="grid grid-cols-6 gap-4 auto-rows-[100px] md:auto-rows-[150px] lg:auto-rows-[200px]">
-    {games.map((game, index) => {
-      // Assign different spans based on index pattern
-      const spanClass =
-        index % 10 === 0
-          ? "col-span-2 row-span-2" // Large block
-          : index % 5 === 0
-          ? "col-span-2 row-span-1" // Medium block
-          : "col-span-1 row-span-1"; // Small block
+      {/* Top Games Section */}
+      <div className="mb-6">
+        <div className="grid grid-cols-7 gap-4 auto-rows-[90px] md:auto-rows-[120px] lg:auto-rows-[120px]">
+          {games
+            .reduce((rows, game, index) => {
+              let row = rows[rows.length - 1];
 
-      return (
-        <div
-          key={game.id}
-          className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all duration-300 ${spanClass}`}
-          onClick={() => handleGameClick(game)}
-        >
-          {/* Game Image */}
-          <img src={game.image} alt={game.title} className="w-full h-full object-cover" />
+              if (!row || row.length >= 7) {
+                row = [];
+                rows.push(row);
+              }
 
-          {/* Shiny Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
+              const remainingSpace = 7 - row.length;
 
-          {/* Title (Hidden by Default, Appears on Hover) */}
-          <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <h3 className="text-white text-sm font-bold text-center truncate">
-              {game.title}
-            </h3>
-          </div>
+              // Place a large block only if there's enough space (2 slots left in row)
+              const isLargeBlock = remainingSpace >= 2 && index % 9 === 0;
+
+              if (isLargeBlock) {
+                row.push({ ...game, spanClass: "col-span-2 row-span-2" });
+              } else {
+                row.push({ ...game, spanClass: "col-span-1 row-span-1" });
+              }
+
+              return rows;
+            }, [])
+            .flatMap((row) => row)
+            .map((game) => (
+              <div
+                key={game.id}
+                className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all duration-300 ${game.spanClass}`}
+                onClick={() => handleGameClick(game)}
+              >
+                {/* Game Image */}
+                <img
+                  src={game.image}
+                  alt={game.title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Shiny Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
+
+                {/* Title (Hidden by Default, Appears on Hover) */}
+                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <h3 className="text-white text-sm font-bold text-center truncate">
+                    {game.title}
+                  </h3>
+                </div>
+              </div>
+            ))}
         </div>
-      );
-    })}
-  </div>
-</div>
-
-
+      </div>
 
 {/* Game Categories with Carousel */}
 {categories.map((category) => {
   const categoryGames = games.filter((game) => game.category === category);
   return (
     <div key={category} className="mb-6 relative">
-      <h2 className="text-xl font-bold text-white mb-3">{category} Games</h2>
+      {/* Category Title with View More */}
+      <div className="flex items-center gap-3 mb-3">
+        <h2 className="text-xl font-bold text-white">{category} Games</h2>
+        <Link
+          to={`/category/${category.toLowerCase()}`}
+          className="text-purple-400 text-sm transition-colors duration-300 hover:text-blue-500 no-underline"
+        >
+          View more
+        </Link>
+      </div>
+
       <div className="relative">
         {categoryGames.length > 6 && (
           <button
@@ -432,14 +504,20 @@ const GamesGrid = ({ searchQuery = "" }) => {
               onClick={() => handleGameClick(game)}
             >
               {/* Game Image */}
-              <img src={game.image} alt={game.title} className="w-full h-full object-cover" />
+              <img
+                src={game.image}
+                alt={game.title}
+                className="w-full h-full object-cover"
+              />
 
               {/* Shiny Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 transition-transform duration-700 origin-left group-hover:scale-x-100" />
 
-              {/* Title appears on hover, positioned at the bottom */}
+              {/* Title appears on hover */}
               <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-white text-sm font-bold text-center">{game.title}</h3>
+                <h3 className="text-white text-sm font-bold text-center">
+                  {game.title}
+                </h3>
               </div>
             </div>
           ))}
@@ -456,7 +534,6 @@ const GamesGrid = ({ searchQuery = "" }) => {
     </div>
   );
 })}
-
     </div>
   );
 };
