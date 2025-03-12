@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Drawer, Tabs } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { FaTimesCircle } from "react-icons/fa";
@@ -7,9 +7,11 @@ import { FaFacebook } from "react-icons/fa";
 import SignupModel from "./SignupModel.jsx"; // Import SignupModel
 
 const GameTabs = ({ open, onClose }) => {
-  const [activeTab, setActiveTab] = useState("recent");
+  const [activeTab, setActiveTab] = useState("favorites");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false); // State to manage SignupModel
+
+
 
   const recentGames = [
     {
@@ -86,24 +88,13 @@ const GameTabs = ({ open, onClose }) => {
             </Tabs.TabPane>
 
             <Tabs.TabPane
-              tab={
-                <span
-                  className={
-                    activeTab === "favorites" ? "text-white" : "text-gray-400"
-                  }
-                >
-                  Favorites
-                </span>
-              }
+              tab={<span className={activeTab === "favorites" ? "text-white" : "text-gray-400"}>Favorites</span>}
               key="favorites"
             >
               {isLoggedIn ? (
                 <GameList games={[]} />
               ) : (
-                <LoginPrompt
-                  activeTab="favorites"
-                  setSignupOpen={setSignupOpen}
-                />
+                <LoginPrompt activeTab="favorites" setSignupOpen={setSignupOpen} />
               )}
             </Tabs.TabPane>
 
@@ -271,3 +262,4 @@ const LoginPrompt = ({ activeTab, setSignupOpen }) => {
 };
 
 export default GameTabs;
+

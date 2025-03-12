@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import GameStats from "./GameStats.jsx";
+import GameTabs from "./GameTabs.jsx";
 import { FaRegHeart } from "react-icons/fa";
 import {
   Maximize2,
@@ -25,6 +26,8 @@ const GamePage = () => {
   const [hasDisliked, setHasDisliked] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showCookiesBar, setShowCookiesBar] = useState(true);
+  const [open, setOpen] = useState(false); // State to open/close GameTabs
+
   const gameContainerRef = useRef(null);
   const iframeRef = useRef(null);
 
@@ -368,6 +371,8 @@ const GamePage = () => {
     return (num / 1000000).toFixed(1) + "M";
   };
 
+
+  
   const closeCookiesBar = () => {
     setShowCookiesBar(false);
   };
@@ -478,9 +483,11 @@ const GamePage = () => {
                     </span>
                   </div>
 
-                  {/* Favorite (Heart) Button */}
                   <div className="relative group">
-                    <button className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400">
+                    <button
+                      onClick={() => setOpen(true)} 
+                      className="flex items-center px-2 py-2 bg-[#474967] rounded-md text-white transition-colors hover:bg-[#474967] hover:text-blue-400"
+                    >
                       <FaRegHeart size={20} />
                     </button>
                     <span className="absolute left-1/2 transform -translate-x-1/2 -top-8 scale-0 group-hover:scale-100 transition bg-[#474967] text-white text-xs rounded-md px-2 py-1">
@@ -597,6 +604,7 @@ const GamePage = () => {
             </div>
           </div>
         </div>
+        <GameTabs open={open} onClose={() => setOpen(false)} />
       </div>
     </div>
   );
